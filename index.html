@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever Valentine 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF4500;
+            --secondary-color: #FF69B4;
+            --accent-color: #fff0f3;
+            --text-color: #fff;
+            --bg-gradient: linear-gradient(135deg, #240016 0%, #55001f 100%); /* A little darker sunset red-purple */
+            --celebration-gradient: linear-gradient(135deg, #18000d 0%, #3f0028 100%); /* Even darker, with a pinkish-red tone */
+            --glass-bg: rgba(255, 105, 180, 0);
+            --glass-border: rgba(255, 105, 180, 0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            perspective: 1000px;
+            transition: background 2.5s ease-out;
+        }
+
+        #particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: float 10s infinite linear;
+            opacity: 0;                  /* Start invisible */
+    transform: translateY(100vh) scale(0); /* Start at bottom off-screen, matching 0% keyframe */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            padding-bottom: 80px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 90%;
+            width: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1.5s ease-out;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container.active {
+            display: flex;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        #screen-letter .container.active {
+    padding-bottom: 20px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Make letter content take available space and scroll internally */
+#screen-letter .letter-content {
+    max-height: calc(100vh - 200px); /* Adjust 200px based on h1 + padding */
+    overflow-y: auto;
+    padding-right: 10px; /* Optional: space for scrollbar */
+}
+
+/* Hide scrollbar on webkit mobile for cleaner look (optional) */
+#screen-letter .letter-content::-webkit-scrollbar {
+    display: none;
+}
+#screen-letter .letter-content {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            text-shadow: 0 0 15px rgba(227, 27, 109, 0.8);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+
+            #yesBtn, #noBtn {
+    font-size: 0.95rem !important;
+    padding: 8px 18px !important;
+    min-width: 110px !important;
+}
+
+    /* Make button area shorter on mobile to prevent overflow/off-screen */
+            #button-area {
+    position: relative;     /* not absolute */
+    left: 0;
+    top: 0;
+    transform: none;
+
+    width: 100%;
+    height: 220px;         /* smaller, controlled area */
+
+    margin-top: 20px;
+    pointer-events: none;
+}
+
+    /* Reduce vertical offset for better centering on small screens */
+            .question {
+                margin-bottom: 60px !important;  /* Was 100px */
+            }
+            p.smiling{
+                margin: 30px 20px 20px 20px;
+            
+            }
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            color: #ddd;
+        }
+
+        .smiling {
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin: 10px;
+            position: absolute;
+            bottom: 30px;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+            min-width: 160px;
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 51, 102, 0.6);
+        }
+
+        #screen-proposal { position: relative; overflow: visible; }
+        #screen-proposal.active { padding-bottom: 0px; }
+
+        #button-area {
+            position: absolute;
+            left: -120px;
+            width: calc(100% + 240px);
+            height: 680px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .question { margin-bottom: 100px; }
+
+        #yesBtn, #noBtn {
+            pointer-events: auto;
+            bottom: auto;
+            height: auto;
+        }
+
+        #noBtn {
+            background: #4a4a4a;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .letter-content {
+            font-family: "Sacramento", cursive;
+            font-size: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            background: rgba(255, 208, 187, 0.9);
+            color: #333;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            min-height: 200px;
+            position: relative;
+        }
+
+        .cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(360deg);
+        }
+
+        #screen-celebration .btn {
+    animation: btnPulse 2s infinite ease-in-out;
+}
+
+@keyframes btnPulse {
+    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4); }
+    50% { transform: scale(1.12); box-shadow: 0 12px 40px rgba(255, 51, 102, 0.9); }
+    100% { transform: scale(1); box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4); }
+}
+
+
+@keyframes celebrationFadeIn {
+    from { 
+        opacity: 0; 
+        transform: scale(0.7); /* Starts small */
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1); /* Grows to full size */
+    }
+}
+
+#screen-celebration.active {
+    animation: celebrationFadeIn 1.2s ease-out; /* Slightly longer for smooth grow + fade */
+}
+
+@media (max-width: 450px) {
+    /* Even smaller for very small phones */
+    h1.question{
+        margin: 0px;
+    }
+    p.smiling{
+        margin: 50px 20px 20px 20px;
+    }
+    #button-area {
+    position: absolute;
+
+    left: 47%;          /* no translate hacks */
+    top: 40%;
+
+    width: 110%;      /* match real width */
+    height: 180px;
+
+    transform: translate(-50%,-49%);
+
+    
+    pointer-events: none;
+}
+
+    #yesBtn, #noBtn {
+        font-size: 0.85rem !important;
+        padding: 7px 14px !important;
+        min-width: 95px !important;
+    }
+
+    .question {
+        margin-bottom: 35px !important;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div id="particles"></div>
+
+    <div class="container active" id="screen-intro">
+        <h1>Hey Beautiful... ✨</h1>
+        <p>I have something quick, simple and special to show you. But I have a very important question first...</p>
+        <button class="btn" onclick="nextScreen('screen-proposal')">Continue 🧡</button>
+    </div>
+
+    <div class="container" id="screen-proposal">
+        <h1 class="question">Will You Be My Valentine? 🌹</h1>
+        <p class="smiling">I see you smiling 😏</p>
+        <div id="button-area">
+            <button class="btn" id="yesBtn">YES!</button>
+            <button class="btn" id="noBtn">No?</button>
+        </div>
+    </div>
+
+    <div class="container" id="screen-celebration">
+        <h1>For you 💖</h1>
+        <img src="https://whipped.in/cdn/shop/files/IMG_6062_1_fceea4de-58c9-457a-b6c3-d4eb61892a95.jpg?v=1707325691" alt="Celebration" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">
+        <p>Can't say "no" to virtual flowers right?</p>
+        <button class="btn" onclick="nextScreen('screen-letter')">💌</button>
+    </div>
+
+    <div class="container" id="screen-letter">
+        <h1>💌</h1>
+        <div class="letter-content">
+            <span id="typewriter-text"></span><span class="cursor"></span>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://ia902906.us.archive.org/19/items/BTSbySen/BTS%20Just%20One%20Day.mp3" type="audio/mp3">
+    </audio>
+    <div class="music-control" onclick="toggleMusic()">🎵</div>
+
+    <script>
+        const YOUR_EMAIL = "aiminn9no@gmail.com";
+        let noBounceCooldown = false;
+        const loveLetterText = "Dearest Anika,\n\nEver since the day we met and knew each other, you've made me look forward to every tomorrow. You make me want to strive to be a better man, not just for you, or for us, but also for myself.\n\nEven though there is distance between us right now and even though we might not always understand each other perfectly, I want you to know that I am always in your corner. I value and cherish every moment we share, and I am looking forward to the memories we have yet to create.\n\nI feel so lucky and grateful to have met someone as kindhearted, thoughtful and understanding as you. You are a rare soul and I am glad our paths crossed.\n\nYou matter a lot to me, so always take care of yourself.\n\n Happy Valentines 🧡";
+
+
+        // Recalculate confetti center on resize/orientation change (fixes mobile UI bar issues)
+window.addEventListener('resize', () => {
+    if (document.getElementById('screen-celebration').classList.contains('active')) {
+        // If celebration is visible, re-trigger confetti to use new center
+        triggerConfetti();
+    }
+});
+        // Particle System
+        function createParticles(type = 'default') {
+            const container = document.getElementById('particles');
+            container.innerHTML = '';
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = Math.random() * 10 + 10 + 's';
+                p.style.animationDelay = Math.random() * 10 + 's';
+                
+                if (type === 'celebration') {
+                    const isHeart = Math.random() > 0.5;
+                    p.style.opacity = '0';
+p.style.transform = 'translateY(100vh) scale(0)';
+                    if (isHeart) {
+                        p.innerHTML = '♥';
+                        const heartColors = ['#FF4500', '#FFA500', '#FF8C00', '#FF6347', '#FD6A02'];
+                        p.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                        p.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    } else {
+                        p.innerHTML = '🍫';
+                        p.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    }
+                    p.style.width = 'auto';
+                    p.style.height = 'auto';
+                    p.style.background = 'transparent';
+                } else {
+                    p.style.width = Math.random() * 10 + 5 + 'px';
+                    p.style.height = p.style.width;
+                }
+
+                p.style.opacity = '0';
+p.style.transform = 'translateY(100vh) scale(0)';
+                container.appendChild(p);
+            }
+        }
+        createParticles();
+
+        // Full confetti explosion
+        function triggerConfetti() {
+
+            const viewport = window.visualViewport || window;
+    const centerX = viewport.width / 2;
+    const centerY = viewport.height / 2;
+
+            const heartColors = ['#FF4500', '#FFA500', '#FF8C00', '#FF6347', '#FD6A02'];
+            const petalColors = ['#FFDAB9', '#FFE4B5', '#FFDEAD', '#FFD700', '#FFEFD5', '#FFCC80'];
+            
+
+            for (let i = 0; i < 150; i++) {
+                const item = document.createElement('div');
+                const type = Math.floor(Math.random() * 3);
+                item.style.position = 'fixed';
+                item.style.left = `${centerX}px`;
+                item.style.top = `${centerY}px`;
+                item.style.zIndex = '1000';
+                item.style.pointerEvents = 'none';
+
+                if (type === 0) {
+                    item.innerHTML = '♥';
+                    item.style.fontSize = Math.random() * 20 + 50 + 'px';
+                    item.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                } else if (type === 1) {
+                    item.style.width = '12px';
+                    item.style.height = '12px';
+                    item.style.backgroundColor = petalColors[Math.floor(Math.random() * petalColors.length)];
+                    item.style.borderRadius = '50% 0 50% 0';
+                } else {
+                    item.innerHTML = '🍫';
+                    item.style.fontSize = Math.random() * 20 + 30 + 'px';
+                }
+                document.body.appendChild(item);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 300 + 200;
+                const xMovement = Math.cos(angle) * velocity;
+                const yMovement = Math.sin(angle) * velocity;
+
+                item.animate([
+                    { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${xMovement}px, ${yMovement}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 1000 + 2000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                    fill: 'forwards'
+                });
+
+                setTimeout(() => item.remove(), 3500);
+            }
+
+            setTimeout(() => startContinuousFalling(), 1000);
+        }
+
+        let fallingInterval;
+        function startContinuousFalling() {
+    fallingInterval = setInterval(() => {
+        const item = document.createElement('div');
+
+        const petalColors = ['#FFDAB9', '#FFE4B5', '#FFDEAD', '#FFD700', '#FFEFD5', '#FFCC80'];
+
+        // 🎯 probability (subtle)
+        const rand = Math.random();
+
+        item.style.position = 'fixed';
+        item.style.left = Math.random() * 100 + 'vw';
+        item.style.top = '-20px';
+        item.style.zIndex = '1000';
+        item.style.pointerEvents = 'none';
+
+        if (rand < 0.75) {
+            // 🌸 petals (most common)
+            item.style.width = '10px';
+            item.style.height = '10px';
+            item.style.backgroundColor = petalColors[Math.floor(Math.random() * petalColors.length)];
+            item.style.borderRadius = '50% 0 50% 0';
+
+        } else if (rand < 0.90) {
+            // 🧡 orange heart (rare)
+            item.innerHTML = '♥';
+            item.style.fontSize = Math.random() * 10 + 18 + 'px';
+            item.style.color = '#FF8C00';
+
+        } else {
+            // 🍫 chocolate (very rare)
+            item.innerHTML = '🍫';
+            item.style.fontSize = Math.random() * 10 + 18 + 'px';
+        }
+
+        document.body.appendChild(item);
+
+        item.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+            { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0.7 }
+        ], {
+            duration: Math.random() * 3000 + 4000,
+            easing: 'ease-in',
+            fill: 'forwards'
+        });
+
+        setTimeout(() => item.remove(), 7000);
+
+    }, 300);
+}
+
+
+        // Screen Navigation
+        function nextScreen(targetId) {
+            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+            const target = document.getElementById(targetId);
+            target.classList.add('active');
+
+            if (targetId === 'screen-letter') {
+                startTypewriter();
+
+                const lingeringYesBtn = document.getElementById('yesBtn');
+        if (lingeringYesBtn) {
+            lingeringYesBtn.remove();
+        }
+            }
+            if (targetId === 'screen-proposal') {
+                setTimeout(initProposalPhysics, 300);
+                const smilingP = document.querySelector('#screen-proposal .smiling');
+                setTimeout(() => {
+                    smilingP.style.opacity = 1;
+                }, 4000);
+            }
+            if (targetId === 'screen-celebration') {
+                document.body.style.background = 'var(--celebration-gradient)';
+
+                const lingeringYesBtn = document.getElementById('yesBtn');
+        if (lingeringYesBtn) {
+            lingeringYesBtn.remove();
+        }
+                createParticles('celebration');
+            }
+        }
+
+        // Music
+        const music = document.getElementById('bgMusic');
+        let isPlaying = false;
+        function toggleMusic() {
+            if (isPlaying) music.pause();
+            else music.play();
+            isPlaying = !isPlaying;
+        }
+
+        // Typewriter
+        let charIndex = 0;
+        function startTypewriter() {
+            const elem = document.getElementById('typewriter-text');
+            elem.innerHTML = "";
+            charIndex = 0;
+            type();
+        }
+        function type() {
+            if (charIndex < loveLetterText.length) {
+                const char = loveLetterText.charAt(charIndex);
+
+                const textEl = document.getElementById('typewriter-text');
+                const container = document.querySelector('#screen-letter .letter-content');
+
+                textEl.innerHTML += char === '\n' ? '<br>' : char;
+
+        // ⭐ auto-scroll to bottom while typing
+                container.scrollTop = container.scrollHeight;
+
+                charIndex++;
+                setTimeout(type, 60);
+            }
+        }
+
+        function sendNotification() {
+            if (YOUR_EMAIL === "demo@gmail.com") return;
+            fetch(`https://formsubmit.co/ajax/${YOUR_EMAIL}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    subject: "SHE SAID YES! 💖",
+                    message: "Anika accepted! 💍✨",
+                    timestamp: new Date().toLocaleString()
+                })
+            });
+        }
+
+        // Yes Action – Yes button moves to center, scales/glows, then "explodes" with confetti
+        function acceptProposal() {
+            document.getElementById('button-area').style.pointerEvents = 'none';
+
+            sendNotification();
+
+            // Stop physics immediately
+            animating = false;
+            yesTarget = null;
+            noVel = { vx: 0, vy: 0 };
+
+            // Hide No button
+            noBtn.style.transition = 'opacity 0.8s ease-out';
+            noBtn.style.opacity = '0';
+
+            // Get current center position of Yes button
+            const rect = yesBtn.getBoundingClientRect();
+            const currentCenterX = rect.left + rect.width / 2;
+            const currentCenterY = rect.top + rect.height / 2;
+
+            document.body.appendChild(yesBtn);
+            // Set fixed positioning at current center
+
+            yesBtn.style.position = 'fixed';
+            yesBtn.style.left = `${currentCenterX}px`;
+            yesBtn.style.top = `${currentCenterY}px`;
+            yesBtn.style.transform = 'translate(-50%, -50%)';
+            yesBtn.style.zIndex = '1000';
+
+            // Force reflow
+            void yesBtn.offsetWidth;
+            
+            
+            yesBtn.style.transition = 'left 1.8s ease-out, top 1.8s ease-out, transform 1.8s ease-out, box-shadow 1.8s ease-out';
+            yesBtn.style.left = '50%';
+            yesBtn.style.top = '50%';
+            yesBtn.style.transform = 'translate(-50%, -50%) scale(2.4)';
+            yesBtn.style.boxShadow = '0 0 120px rgba(255, 51, 102, 1)';
+            yesBtn.innerText = 'Yes!💖';
+
+            const proposalScreen = document.getElementById('screen-proposal');
+proposalScreen.style.transition = 'opacity 1.8s ease-out';  
+proposalScreen.style.opacity = '0';
+
+            
+            setTimeout(() => {
+                triggerConfetti(); 
+
+                yesBtn.style.transition = 'opacity 0.8s ease-out';
+                yesBtn.style.opacity = '0';
+
+                const proposalScreen = document.getElementById('screen-proposal');
+                proposalScreen.style.opacity = '0';
+
+                setTimeout(() => {
+                    nextScreen('screen-celebration');
+                }, 200);
+            }, 1800);
+        }
+
+        // Physics (fully intact)
+        let container, yesBtn, noBtn, btnW, btnH, yesPos, noPos, noVel, yesTarget, animating = false;
+        let dodgeCount = 0;
+        const phrases = ["No??", "Are you sure?", "Really?", "Think again!", "Please? 🥺", "Last chance!", "You can't say no!", "WHYY", "I'll give you cookies 🍪", "Are you really sure???", "You having fun?", "Stop bullying this button", "Yeah, keep pressing 😤", "You pressed it again. 😤", "😤😤😤", "You're so cute 🥰", "Oops don't blush 😏", "Just press the 'Yes' button 😂"];
+        const isTiny = window.innerWidth <= 450;
+
+const friction = isTiny ? 0.96 : 0.91;
+const minStopSpeed = isTiny ? 2 : 0.7;
+        
+        
+        const yesSpeed = 35;
+        const pushStrength = 14;
+        const bounceDamp = 0.75;
+        const maxSpeed = 40;
+        
+        const wallThreshold = 2;
+
+        function initProposalPhysics() {
+            container = document.getElementById('button-area');
+            yesBtn = document.getElementById('yesBtn');
+            noBtn = document.getElementById('noBtn');
+            btnW = Math.max(yesBtn.offsetWidth, noBtn.offsetWidth);
+            btnH = yesBtn.offsetHeight;
+
+            const visibleCenterX = container.clientWidth / 2;
+            const gap = 40;
+            const offsetY = 50;
+            yesPos = { x: visibleCenterX - btnW - gap / 2, y: container.clientHeight / 2 - btnH / 2 + offsetY };
+            noPos = { x: visibleCenterX + gap / 2, y: container.clientHeight / 2 - btnH / 2 + offsetY };
+
+            noVel = { vx: 0, vy: 0 };
+            yesTarget = null;
+            animating = false;
+
+            updatePositions();
+            addProposalListeners();
+        }
+
+        function updatePositions() {
+            // Prevent physics from overriding the exploding button
+            if (yesBtn.style.position === 'fixed') return;
+
+            yesBtn.style.left = yesPos.x + 'px';
+            yesBtn.style.top = yesPos.y + 'px';
+            noBtn.style.left = noPos.x + 'px';
+            noBtn.style.top = noPos.y + 'px';
+        }
+
+        function checkCollision() {
+            return !(yesPos.x + btnW < noPos.x || yesPos.x > noPos.x + btnW || yesPos.y + btnH < noPos.y || yesPos.y > noPos.y + btnH);
+        }
+
+        function constrainYes() {
+            yesPos.x = Math.max(0, Math.min(yesPos.x, container.clientWidth - btnW));
+            yesPos.y = Math.max(0, Math.min(yesPos.y, container.clientHeight - btnH));
+        }
+
+        function bounceNo() {
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    let hitWall = false;
+    if (noPos.x < 0) { noPos.x = 0; noVel.vx = -noVel.vx * bounceDamp; hitWall = true; }
+    else if (noPos.x + btnW > width) { noPos.x = width - btnW; noVel.vx = -noVel.vx * bounceDamp; hitWall = true; }
+
+    if (noPos.y < 0) { noPos.y = 0; noVel.vy = -noVel.vy * bounceDamp; hitWall = true; }
+    else if (noPos.y + btnH > height) { noPos.y = height - btnH; noVel.vy = -noVel.vy * bounceDamp; hitWall = true; }
+
+    // ✅ Remove random wiggle / extra velocity entirely
+}
+
+
+        function resolveYesCollision() {
+            if (!checkCollision()) return;
+            const cYesX = yesPos.x + btnW / 2;
+            const cYesY = yesPos.y + btnH / 2;
+            const cNoX = noPos.x + btnW / 2;
+            const cNoY = noPos.y + btnH / 2;
+            const penX = btnW - Math.abs(cYesX - cNoX);
+            const penY = btnH - Math.abs(cYesY - cNoY);
+            if (penX > 0 && penY > 0) {
+                let sepX = 0, sepY = 0;
+                if (penX < penY) {
+                    const signX = cNoX > cYesX ? 1 : -1;
+                    sepX = penX * signX;
+                } else {
+                    const signY = cNoY > cYesY ? 1 : -1;
+                    sepY = penY * signY;
+                }
+                noPos.x += sepX;
+                noPos.y += sepY;
+                let dx = cNoX - cYesX;
+                let dy = cNoY - cYesY;
+                let dist = Math.hypot(dx, dy) || 1;
+                let push = pushStrength;
+                if (yesTarget) push *= 1.5;
+                noVel.vx += (dx / dist) * push;
+                noVel.vy += (dy / dist) * push;
+                capSpeed();
+            }
+        }
+
+        function capSpeed() {
+            const speed = Math.hypot(noVel.vx, noVel.vy);
+            if (speed > maxSpeed) {
+                noVel.vx = (noVel.vx / speed) * maxSpeed;
+                noVel.vy = (noVel.vy / speed) * maxSpeed;
+            }
+        }
+
+        function animationLoop() {
+            if (yesTarget) {
+                let dx = yesTarget.x - yesPos.x;
+                let dy = yesTarget.y - yesPos.y;
+                let dist = Math.hypot(dx, dy);
+                if (dist <= yesSpeed || dist < 1) {
+                    yesPos.x = yesTarget.x;
+                    yesPos.y = yesTarget.y;
+                    yesTarget = null;
+                } else {
+                    yesPos.x += (dx / dist) * yesSpeed;
+                    yesPos.y += (dy / dist) * yesSpeed;
+                }
+                constrainYes();
+            }
+
+            noPos.x += noVel.vx;
+            noPos.y += noVel.vy;
+            noVel.vx *= friction;
+            noVel.vy *= friction;
+
+            resolveYesCollision();
+            bounceNo();
+
+            const noSpeed = Math.hypot(noVel.vx, noVel.vy);
+if (!yesTarget && noSpeed < minStopSpeed) {
+    animating = false;
+    noVel.vx = 0;
+    noVel.vy = 0;
+} else if (animating) {
+    // ✅ Only animate if velocity is meaningful
+    if (noSpeed > 0.5) {
+        requestAnimationFrame(animationLoop);
+    } else {
+        animating = false;  // snap to stop
+        noVel.vx = 0;
+        noVel.vy = 0;
+    }
+}
+            updatePositions();
+        }
+
+        function addProposalListeners() {
+            yesBtn.addEventListener('click', acceptProposal);
+            noBtn.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    dodgeCount++;
+    noBtn.innerText = phrases[dodgeCount % phrases.length];
+
+    // Get No button position
+    const noRect = noBtn.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const targetX = noRect.left - containerRect.left;
+    const targetY = noRect.top - containerRect.top;
+
+    // === Instant Yes jump ===
+    yesPos.x = targetX;
+    yesPos.y = targetY;
+    yesBtn.style.left = yesPos.x + 'px';
+    yesBtn.style.top = yesPos.y + 'px';
+    yesTarget = null; // prevent gradual movement
+
+    // Push No button naturally
+    const cYesX = yesPos.x + btnW / 2;
+    const cYesY = yesPos.y + btnH / 2;
+    const cNoX = noPos.x + btnW / 2;
+    const cNoY = noPos.y + btnH / 2;
+
+    const dx = cNoX - cYesX;
+    const dy = cNoY - cYesY;
+    const dist = Math.hypot(dx, dy) || 1;
+
+    noVel.vx = (dx / dist) * pushStrength;
+    noVel.vy = (dy / dist) * pushStrength;
+
+    let adjustedPush = pushStrength;
+if (window.innerWidth <= 450) {
+    adjustedPush = pushStrength * 0.6;  // smaller push on tiny screens
+}
+noVel.vx = (dx / dist) * adjustedPush;
+noVel.vy = (dy / dist) * adjustedPush;
+
+    if (!animating) {
+        animating = true;
+        requestAnimationFrame(animationLoop);
+    }
+});
+
+        }
+    </script>
+</body>
+</html>
